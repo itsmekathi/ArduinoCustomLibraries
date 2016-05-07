@@ -7,30 +7,30 @@ void setup(){
 
 void loop(){
   audio1.recordAudio(0);
-  delay(10000);      //10 Second Recording
-    audio1.stopRecord();          //Stop the recording
+  delay(10000);                       //10 Second Recording
+    audio1.stopRecording();           //Stop the recording
     delay(2000);
-  audio1.playAudioTillBusy(0);  //Play the recorded audio
+  audio1.playAudioTillBusy(0);        //Play the recorded audio
 
   
   audio1.recordAudio(1);
-  delay(10000);      //10 Second Recording
-    audio1.stopRecord();          //Stop the recording
+  delay(10000);                       //10 Second Recording
+    audio1.stopRecording();            //Stop the recording
     delay(2000);
-  audio1.playAudioTillBusy(1);  //Play the recorded audio
+  audio1.playAudioTillBusy(1);          //Play the recorded audio
 
 
   audio1.recordAudio(2);
-  delay(10000);      //10 Second Recording
-    audio1.stopRecord();          //Stop the recording
+  delay(10000);                       //10 Second Recording
+    audio1.stopRecording();          //Stop the recording
     delay(2000);
-  audio1.playAudioTillBusy(2);  //Play the recorded audio
+  audio1.playAudioTillBusy(2);        //Play the recorded audio
 
 
   audio1.recordAudio(3);
-  delay(10000);      //10 Second Recording
-    audio1.stopRecord();          //Stop the recording
+  delay(10000);                       //10 Second Recording
+    audio1.stopRecording();           //Stop the recording
     delay(2000);
-  audio1.playAudioTillBusy(3);  //Play the recorded audio
+  audio1.playAudioTillBusy(3);          //Play the recorded audio
 
 }
