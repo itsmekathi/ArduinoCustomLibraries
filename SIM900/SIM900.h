@@ -3,7 +3,7 @@
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 
-#define SERIALTIMEOUT 2000
+#define SERIALTIMEOUT 5000
 #define PHONESIZE 13
 #define MAXMSGLEN 100
 #define OUTMESSAGE_SIZE 100
@@ -11,37 +11,38 @@
 class SIM900 : public SoftwareSerial {
 public:
   SIM900(int rxpin,int txpin);
-  void SendSMS();
-  void SendSMS(char * cellnumber,char * outmsg);
-  void DeleteAllSMS();
+  
+  void Boot();
   void Reset();
-  void EndSMS();
-  void StartSMS();
   int ReadLine();
   void Verbose(boolean var1);
-  boolean Verbose();
+  
+  void EndSMS();
+  void StartSMS();
+  void DeleteAllSMS();
+  void SendSMS();
+  void SendSMS(char * cellnumber,char * outmsg);
   void Sender(char * var1);
   char * Sender();
   void Rcpt(char * var1);
   char * Rcpt();
   void Message(char * var1);
   char * Message();
-  void Boot();
 
-  void Call(char * cellNumber);
-  void CallHangup();
-  byte GetCallStatus();
-  void AnswerCall();
-  void DisconnectLine();
+  byte CallStatus(void);			// Finds out the status of call
+  void PickUp(void);				// Picks up an incoming call
+  void HangUp(void);				// Hangs up an incomming call
+  void Call(char* cellNumber);		// Calls the specific number
+  void Call(int sim_position);		// Makes a call to the number stored at the specified SIM position
 
-
-
+  
   boolean verbose;
   char sendernumber[PHONESIZE + 1];
   char rcpt[PHONESIZE + 1];
-  char outmessage[100];
-  
-protected:
+  char outmessage[OUTMESSAGE_SIZE];
+  char inmessage[100];
+
+  protected:
   unsigned long lastrec;
   
 };
