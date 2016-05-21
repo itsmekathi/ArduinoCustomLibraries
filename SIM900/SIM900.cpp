@@ -147,9 +147,18 @@ void SIM900::SendSMS(){
 //////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////  Call routines //////////////////////////////////////////////
 
-// Returns the status of the call to the calling program
-byte SIM900::CallStatus(void)			// Finds out the status of call
+/**************************************************
+Method checks status of call
+return:
+	CALL_NONE			- no call activity
+	CALL_INCOM_VOICE	- incoming voice
+	CALL_ACTIVE_VOICE	- active voice
+	CALL_NO_RESPONSE	- no response to the AT command
+	CALL_COMM_LINE_BUSY	- comm line is not free
+**************************************************/
+byte SIM900::CallStatus(void)			
 {
+	// Implements the AT+CPAS 
 	return 1;
 }
 
@@ -157,25 +166,64 @@ byte SIM900::CallStatus(void)			// Finds out the status of call
 void SIM900::PickUp(void)
 {
 	// Implements the ATA function
+	this->println("ATA");
+	delay(5000);
+	this->ReadLine();
 	return;
 }
 
 // Hangs up the current call
 void SIM900::HangUp(void)
 {
+	this->println("ATH");
+	delay(5000);
+	this->ReadLine();
 	return;
 }
 
 // Calls the phone number specified
 void SIM900::Call(char * cellNumber)
 {
+	// Implement the calling mechanism
 	this->Rcpt(cellNumber);
 	if (verbose) Serial.println(rcpt);
-	// Implement the calling mechanism
+	// ATDxxxxxx;<CR>
+	this->print("ATD");
+	this->print(rcpt);
+	this->println(";");
+	// 10 sec for initial comm timeout
+	delay(10000);
+	this->ReadLine();
 }
+
+void SIM900::Call()
+{
+	if (verbose) Serial.println(rcpt);
+	// ATDxxxxxx;<CR>
+	this->print("ATD");
+	this->print(rcpt);
+	this->println(";");
+	// 10 sec for initial comm timeout
+	delay(10000);
+	this->ReadLine();
+}
+
+/*************************************************
+Method calls he number stored at the specified SIM osition
+sim_position: position in the SIM <1....>
+			  e.g. Call(1);
+**************************************************/
 
 void SIM900::Call(int sim_position)
 {
+	// ATD>"SM" 1;<CR>
+	this->print("ATD>\"SM\" ");
+	this->print(sim_position);
+	this->println(";");
+	// 10 sec for initial comm tmout
+	delay(10000);
+	this->ReadLine();
+	return;
 
 }
 

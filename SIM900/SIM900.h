@@ -33,6 +33,7 @@ public:
   void PickUp(void);				// Picks up an incoming call
   void HangUp(void);				// Hangs up an incomming call
   void Call(char* cellNumber);		// Calls the specific number
+  void Call();						// Calls the numer which is already stored in rcpt variable
   void Call(int sim_position);		// Makes a call to the number stored at the specified SIM position
 
   
